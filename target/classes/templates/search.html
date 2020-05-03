@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace = "_fragments :: head(~{::title})">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.css">
+    <link rel="stylesheet" href="../static//css/style.css">
+    <title>搜索结果</title>
+</head>
+<body>
+    <!--导航栏-->
+    <nav class="ui inverted segment attached m-padded-tb-mini m-shadow-small" th:replace = "_fragments :: menu(1)">
+        <div class="ui container ">
+            <div class="ui menu inverted secondary stackable">
+                <h2 class="ui teal header item">搜索结果</h2>
+                <a href="#" class="m-item item  m-mobile-hide"><i class="small home icon"></i>首页</a>
+                <a href="#" class="m-item item  m-mobile-hide"><i class="small idea icon"></i>分类</a>
+                <a href="#" class="active m-item item  m-mobile-hide"><i class="small tags icon"></i>标签</a>
+                <a href="#" class="m-item item  m-mobile-hide"><i class="small clone icon"></i>归档</a>
+                <a href="#" class="m-item item  m-mobile-hide"><i class="small info icon"></i>关于我</a>
+                <div class="m-item right item m-mobile-hide">
+                    <div class="ui input icon inverted transparent">
+                        <input type="text" placeholder = "Search....">
+                        <i class="search icon link"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <a href="#" class="ui black button m-right-top m-mobile-show menu toggle">
+            <i class="sidebar icon"></i>
+        </a>
+    </nav>
+
+    <!--中间-->
+    <div class="m-container-small m-padded-tb-large">
+        <div class="ui container">
+            <!--头部-->
+            <div class="ui top attached segment">
+                <div class="ui middle aligned two column grid">
+                    <div class="column">
+                        <h3 class="ui teal header">标签</h3>
+                    </div>
+                    <div class="column right aligned">
+                        共 <h2 class="ui orange header m-inline-block " th:text="${page.totalElements}">14</h2> 个
+                    </div>
+                </div>
+            </div>
+
+
+            <!--文章列表-->
+            <div class="ui top attached teal segment">
+                <div class="ui  segment m-padded vertical m-padded-tb " th:each="blog:${page.content}">
+                    <div class="ui mobile middle aligned reversed stackable grid " > <!--mobile reversed stackable-->
+                        <div class="eleven wide column">
+                            <h3 class="ui header" ><a href="#" class="m-black" th:text="${blog.title}"  th:href="@{/blog/{id}(id=${blog.id})}" target="_blank">这是一个标题</a></h3>
+                            <p class=" m-text" th:text="|${blog.description}......|">市场经济体制是市场在资源配置中起决定性作用的经济体制。在市场经济中，生产什么，如何生产，生产多少主要通过价格，供求，竞争等机制来调节。市场机制就像一只“看不见的手”，在资源配置中起决定性作用</p>
+                            <div class="ui grid">
+                                <div class="eleven wide column">
+                                    <div class="ui horizontal link list">
+                                        <div class="item">
+                                            <img src="https://picsum.photos/id/1000/100/100"th:src="@{${blog.user.avatar}}" alt="" class="ui avatar image">
+                                            <div class="content"><a href="#" class="header" th:text="${blog.user.nickname}">罗少腾</a></div>
+                                        </div>
+                                        <div class="item">
+                                            <i class="calendar icon"></i> <span th:text="${#dates.format(blog.updateTime,'yyyy-MM-dd')}">2020-4-1</span>  <!--#dates.format()用来规定日期的格式-->
+                                        </div>
+                                        <div class="item">
+                                            <i class="eye icon"></i><span th:text="${blog.views}">1322</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="right aligned five wide column">
+                                    <a href="#" class="ui teal basic label  m-padded-tiny m-text-thin" target="_blank" th:text="${blog.type.name}">认知升级</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="five wide column">
+                            <a href="#" th:href="@{/blog/{id}(id=${blog.id})}" target="_blank">
+                                <img src="https://picsum.photos/id/1000/800/450" alt="" class="ui rounded image" th:src="@{${blog.firstPicture}}">
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+
+            <!--上一页下一页-->
+
+                <div class="ui bottom attached segment" th:if="${page.totalPages}>1">
+                    <div class="ui middle aligned two column grid">
+                        <div class="column">
+                            <a href="#" th:href="@{/(page=${page.number}-1)}"  th:unless="${page.first}" class="ui teal basic button">上一页</a>
+                        </div>
+                        <div class="column right aligned">
+                            <a href="#" th:href="@{/(page=${page.number}+1)}"    th:unless="${page.last}" class="ui teal basic button">下一页</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <!--footer-->
+    <footer class="ui segment inverted vertical m-padded-tb-massive" th:replace="_fragments :: footer">
+        <div class="ui center aligned container">
+            <div class="ui grid divided inverted stackable">
+                <div class="three wide column">
+                    <div class="ui link list">
+                        <div class="item">
+                            <img src="../static/img/pic1.jpg" alt="" class="ui rounded image" style="width: 110px;">
+                        </div>
+                    </div>
+                </div>
+                <div class="three wide column">
+                    <h4 class="ui inverted header m-text-thin  m-text-lined" >最新博客</h4>
+                    <div class="ui inverted link list">
+                        <a href="#" class="item">用户故事(User Story)</a>
+                        <a href="#" class="item">用户故事(User Story)</a>
+                        <a href="#" class="item">用户故事(User Story)</a>
+                    </div>
+                </div>
+                <div class="three wide column">
+                    <h4 class="ui inverted header m-text-thin  m-text-lined">联系我</h4>
+                    <div class="ui inverted link list">
+                        <a href="#" class="item">Email: 1347322037@qq.com</a>
+                        <a href="#" class="item">QQ: 1347322037</a>
+                    </div>
+                </div>
+                <div class="seven wide column">
+                    <h4 class="ui inverted header m-text-thin m-opcity-mini m-text-lined">最新博客</h4>
+                    <p class="m-text-thin m-opacity-mini m-text-lined">这是我的个人博客，会分享关于编程，写作相关的任何内容，希望可以帮助到你</p>
+                </div>
+            </div>
+            <div class="ui inverted section divider"></div>
+            <p class="m-text-spaced m-opacity-tiny">Copyright © 2019-2020 Designed by ShadySome</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.js"></script>
+    <script>
+        $('.menu.toggle').click(function()
+        {
+            $(".m-item").toggleClass('m-mobile-hide');
+        });
+        $('#newblog-container').load(/*[[@{/footer/newblogs}]]*/"/footer/newblogs");
+    </script>
+</body>
+</html>

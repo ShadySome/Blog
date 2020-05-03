@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="lstblog:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <properties id="maven-jee-properties">
+      <options>
+        <module>lstblog</module>
+        <packaging>war</packaging>
+      </options>
+    </properties>
+    <root id="archive" name="lstblog.war">
+      <element id="artifact" artifact-name="lstblog:war exploded" />
+    </root>
+  </artifact>
+</component>
